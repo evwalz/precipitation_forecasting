@@ -4,7 +4,7 @@
 Code to build data-driven models, to produce precipitation forecasts and to replicate Figure 9 from the paper "Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa".
 
 
-The folder [scipts](./scipts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and a jupyter notebook to visualize results (Figure 9 of the paper).
+The folder [scripts](./scripts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and a jupyter notebook to visualize results (Figure 9 of the paper).
 
 The folder [precip_data](./precip_data/) contains data to compute climatology, statistical forecasts (DIM and Logit) and to replicate Figure 9. To compute scores for NWP foreacsts and the hybrid models NWP data in the folder [forecasts](./precip_data/forecasts) is required which is not provided in this repository (see next section)
 
@@ -12,7 +12,7 @@ The folder [forecasts](./precip_data/forecasts) is empty since data size is to l
 
 ### Instruction
 
-File paths are relative to root of this package. If necessary adapt path to data in the files of the folder [scipts](./scipts/). 
+File paths are relative to root of this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). 
 
 Notebook `plot_eval.ipynb` computes Figure 9.
 

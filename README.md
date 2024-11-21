@@ -14,7 +14,7 @@ The folder [forecasts](./precip_data/forecasts) is empty since data size is to l
 
 File paths are realtive to root of this package. If necessary adapt path to data in the files of the folder [scipts](./scipts/). 
 
-Notebook *plot_eval.ipynb* computes Figure 9
+Notebook `plot_eval.ipynb` computes Figure 9.
 
 To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation)
 Data to compute CNN forecasts is provided in folder [precip_data](https://github.com/evwalz/precipitation_forecasting/precip_data). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/run/).

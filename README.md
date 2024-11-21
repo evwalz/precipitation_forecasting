@@ -12,7 +12,7 @@ The folder [forecasts](./precip_data/forecasts) is empty since data size is to l
 
 ### Instruction
 
-File paths are relative to root of this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). 
+File paths are relative to folder structure in this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). 
 
 Notebook `plot_eval.ipynb` computes Figure 9.
 

@@ -8,7 +8,7 @@ library(ensembleMOS)
 source(paste(dirname(rstudioapi::getSourceEditorContext()$path),'/emos_functions.R', sep = ''))
 
 
-data_dir <- "/Volumes/My Passport for Mac/cnn/data_update/with_precip/precip_data"
+data_dir <- "../precip_data"
 #season = 'JAS'
 
 lsm = read.table(paste(data_dir,'/lsm.txt' , sep = ''))

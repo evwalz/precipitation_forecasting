@@ -64,11 +64,6 @@ def compute_rel(model, season, data_dir):
                 obs_list.append(yval_grid_month_bin)
                 
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
-    elif model == 'emos':
-        obs = np.loadtxt(data_dir +  '/results/prev_results_emos/emos_obs_' + season + '.txt')
-        pop = np.loadtxt(data_dir  + '/results/prev_results_emos/emos_pop_'+ season + '.txt')
-        obs_bin = obs > 0.2
-        rel_object = reliabilitydiag(pop, obs_bin)
     else:
         rel_object = None
         print('not yet implemented')
@@ -107,11 +102,9 @@ def compute_pit(model, season, data_dir):
             for val in unique_tts:
                 ix_month = np.where(val == time_train)[0]
                 month_ens = ytrain_grid[ix_month]
-                month_prob = np.mean(month_ens > 0.2)
                 yval_grid_month = yval_grid[val == time_test_season]
                 ens_dim = len(yval_grid_month)    
                 ens_mat = np.tile(month_ens, (ens_dim, 1))
-                yval_grid_month_bin = yval_grid_month > 0.2
                 pits = upit(yval_grid_month, ens_mat)
                 
                 pit_list.append(pits)

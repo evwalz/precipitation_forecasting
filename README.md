@@ -28,7 +28,6 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 
 ### Under construction
 
-    - include save_full in emos.R
     - include all forecast models in script Niamey.ipynb
     - cpa_auc.ipynb
     - spear_correlation.ipynb

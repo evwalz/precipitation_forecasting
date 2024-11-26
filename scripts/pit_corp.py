@@ -111,4 +111,5 @@ def compute_pit(model, season, data_dir):
         pit_vals = np.concatenate(pit_list)
     else:
         print('not yet implemented')
+        pit_vals = None
     return pit_vals

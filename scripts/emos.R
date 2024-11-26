@@ -30,7 +30,7 @@ hres_data <- ncvar_get(hres, "tp")
 ctrl_data <- ncvar_get(ctrl, "tp")
 
 
-for (fold in 7:8){
+for (fold in 0:8){
   print(fold)
   year <- 11 + fold
 

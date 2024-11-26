@@ -64,7 +64,13 @@ def compute_rel(model, season, data_dir):
                 obs_list.append(yval_grid_month_bin)
                 
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
+    elif model == 'emos':
+        obs = np.loadtxt(data_dir +  '/results/prev_results_emos/emos_obs_' + season + '.txt')
+        pop = np.loadtxt(data_dir  + '/results/prev_results_emos/emos_pop_'+ season + '.txt')
+        obs_bin = obs > 0.2
+        rel_object = reliabilitydiag(pop, obs_bin)
     else:
+        rel_object = None
         print('not yet implemented')
     return rel_object
 

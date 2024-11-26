@@ -5,15 +5,23 @@ Code to build data-driven models, to produce precipitation forecasts and to repl
 
 
 The folder [scripts](./scripts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and jupyter notebooks to visualize results:
-
+    
+    - Figure 2, 3 and 4: cpa_auc.ipynb (not yet online)
+    - Figure 5: spear_correlation.ipynb
     - Figure 9: plot_eval.ipynb
     - Figure 10 and 11: skillscore.ipynb
     - Figure 12 and 13: Niamey.ipynb
     - Figure 14: decomposition.ipynb (not yet online)
-    - Figure 5: spear_correlation.ipynb
-    - Figure 2, 3 and 4: cpa_auc.ipynb (not yet online)
 
-For Figure 7 and 8 successively remove one feature to train logit and dim model (stat_models.ipynb). To replicate data which is used for Figure 9 (see folder [results](./precip_data/results/)) run forecast scripts: `mpc.ipynb`, `stat_models.ipynb`, `cnn_model.ipynb`, `ecmwf_fct.ipynb` and `emos.R`. To cpmpute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`.
+For Figure 7 and 8 successively remove one feature to train logit and dim model (stat_models.ipynb). To replicate data which is used for Figure 9 (see folder [results](./precip_data/results/)) run forecast scripts: 
+
+    - mpc.ipynb
+    - stat_models.ipynb
+    - cnn_model.ipynb
+    - ecmwf_fct.ipynb 
+    - emos.R
+ 
+To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`.
 
 The folder [precip_data](./precip_data/) contains data to compute climatology, statistical forecasts (DIM and Logit) and to replicate Figure 9. To compute scores for NWP foreacsts and the hybrid models NWP data in the folder [forecasts](./precip_data/forecasts) is required which is not provided in this repository (see next section)
 

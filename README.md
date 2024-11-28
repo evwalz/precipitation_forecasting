@@ -29,8 +29,6 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 ### Under construction
 
     - include all forecast models in script Niamey.ipynb
-    - cpa_auc.ipynb
-    - spear_correlation.ipynb
     - decomposition.ipynb
     - store forecast data and include path
 

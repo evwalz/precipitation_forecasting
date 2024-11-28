@@ -6,7 +6,12 @@ import pandas as pd
 from scipy.stats import genextreme
 from scipy.special import gamma 
 from scipy import stats  
-
+from scipy.stats import spearmanr
+from scipy.stats import rankdata
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap, LinearSegmentedColormap
+import matplotlib.colors as mcolors
+from matplotlib import transforms
 
 @dataclass
 class PrecipitationDataPaths:
@@ -468,3 +473,233 @@ def crps_GEVneq0(mean, scale, shape, obs):
         T3 = -2*SCdSH * ( 1-probY - Gam1mSH*stats.gamma.cdf(-np.log(probY),1-shape))
     return( np.mean(T1+T2+T3) )
 
+def spear_season_ix(season):
+    yearly_times = pd.date_range(start='12/02/2000T06', end='12/01/2019T06')
+    if season == 'JAS':
+        train_t = pd.date_range(start='07/02/2001T06', end='10/01/2001T06')
+        for i in range(2, 20):
+            if i < 10:
+                t0 = pd.date_range(start='07/02/200' + str(i) + 'T06', end='10/01/200' + str(i) + 'T06')
+            else:
+                t0 = pd.date_range(start='07/02/20' + str(i) + 'T06', end='10/01/20' + str(i) + 'T06')
+            train_t = train_t.union(t0)
+    
+    elif season == 'MA':
+        train_t = pd.date_range(start='03/02/2001T06', end='05/01/2001T06')
+        for i in range(2, 20):
+            if i < 10:
+                t0 = pd.date_range(start='03/02/200' + str(i) + 'T06', end='05/01/200' + str(i) + 'T06')
+            else:
+                t0 = pd.date_range(start='03/02/20' + str(i) + 'T06', end='05/01/20' + str(i) + 'T06')
+            train_t = train_t.union(t0)   
+    
+    elif season == 'MJ':
+        train_t = pd.date_range(start='05/02/2001T06', end='07/01/2001T06')
+        for i in range(2, 20):
+            if i < 10:
+                t0 = pd.date_range(start='05/02/200' + str(i) + 'T06', end='07/01/200' + str(i) + 'T06')
+            else:
+                t0 = pd.date_range(start='05/02/20' + str(i) + 'T06', end='07/01/20' + str(i) + 'T06')
+            train_t = train_t.union(t0)
+    elif season == 'ON':
+        train_t = pd.date_range(start='10/02/2001T06', end='12/01/2001T06')
+        for i in range(2, 20):
+            if i < 10:
+                t0 = pd.date_range(start='10/02/200' + str(i) + 'T06', end='12/01/200' + str(i) + 'T06')
+            else:
+                t0 = pd.date_range(start='10/02/20' + str(i) + 'T06', end='12/01/20' + str(i) + 'T06')
+            train_t = train_t.union(t0)
+
+    elif season == 'DJF':
+        train_t = pd.date_range(start='12/02/2000T06', end='03/01/2001T06')
+        for i in range(2, 20):
+            if i < 10:
+                t0 = pd.date_range(start='12/02/200' + str(i - 1) + 'T06', end='03/01/200' + str(i) + 'T06')
+            else:
+                if i == 10:
+                    t0 = pd.date_range(start='12/02/200' + str(i - 1) + 'T06', end='03/01/20' + str(i) + 'T06')
+                else:
+                    t0 = pd.date_range(start='12/02/20' + str(i - 1) + 'T06', end='03/01/20' + str(i) + 'T06')
+            train_t = train_t.union(t0)
+    else:
+        raise ValueError('season not defined')
+    indices = np.where(np.in1d(yearly_times, train_t))[0]
+    return indices
+
+def spear_corr(season, data_dir):
+    lsm = np.loadtxt(data_dir  + "/lsm.txt")
+    land_bin = np.where(lsm == 0, np.nan, lsm)
+    lons = np.arange(-25, 35.5)
+    lats = np.arange(19)
+    lon_flat = np.tile(lons, 19)
+    lat_flat = np.repeat(lats, 61)
+
+    combi = np.vstack([lat_flat, lon_flat, land_bin.flatten()]).T
+    combi_df = pd.DataFrame(combi)
+    combi_df_nan = combi_df.dropna()
+    lat_tuple = np.asarray(combi_df_nan[0])
+    lon_tuple = np.asarray(combi_df_nan[1])
+    
+    paths = PrecipitationDataPaths()
+    feature_set_train, feature_set_test = select_data_subset(paths=paths, version='v2', fold=8)
+    Xtrain, ytrain = load_and_concat(data_dir, 8, feature_set_train, add_time = False, mode = "train")
+    Xtest, ytest = load_and_concat(data_dir, 8, feature_set_train, add_time = False, mode = "test")
+    M = Xtrain.shape[1]
+    spear_vals = np.zeros((len(lat_tuple), M, M))
+    indices = spear_season_ix(season)
+    for i in range(len(lat_tuple)):
+        lat = int(lat_tuple[i])
+        lon = lon_tuple[i]
+        j = int(lon + 25)
+        Xtrain_grid = Xtrain[:, :, lat, j]
+        Xtest_grid = Xtest[:, :, lat, j]
+        X_grid = np.concatenate((Xtrain_grid, Xtest_grid))
+        r = spearmanr(X_grid[indices,:], axis = 0)
+        spear_vals[i, :, :] = r[0]
+    return spear_vals
+
+
+def cpa(response, predictor):
+    """
+    Calculate CPA coefficient.
+
+    CPA attains values between zero and one. Weighted probability of concordance. 
+
+    Parameters
+    ----------
+    response : 1D array_like, 1-D array containing observation (response). Need to have the same length in the ``axis`` dimension as predictor.
+    predictor : 1D array_like, 1-D array containing predictions for observation.
+       
+    Returns
+    -------
+    correlation : float
+        	  CPA coefficient 
+    """    
+    response = np.asarray(response)
+    if response.ndim > 1:
+        raise ValueError("CPA only handles 1-D arrays of responses")
+
+    predictor = np.asarray(predictor)
+	
+    if predictor.ndim > 1:
+        ValueError("CPA only handles 1-D arrays of forecasts")   
+  
+    	# check for nans
+    if np.isnan(np.sum(response)) == True:
+        ValueError("response contains nan values")
+		
+    if np.isnan(np.sum(predictor)) == True:
+        ValueError("forecast contains nan values")
+	
+    #responseOrder = np.argsort(response)
+    #responseSort = response[responseOrder] 
+    #forecastSort = predictor[responseOrder]                
+    forecastRank = rankdata(predictor, method='average')
+    responseRank = rankdata(response, method='average')
+    responseClass = rankdata(response, method='dense')
+    
+    return((np.cov(responseClass,forecastRank)[0][1]/np.cov(responseClass,responseRank)[0][1]+1)/2) 
+	
+ 
+
+
+def cpa_seasons(data_dir, accum = True):
+
+    lsm = np.loadtxt(data_dir  + "/lsm.txt")
+    land_bin = np.where(lsm == 0, np.nan, lsm)
+    lons = np.arange(-25, 35.5)
+    lats = np.arange(19)
+    lon_flat = np.tile(lons, 19)
+    lat_flat = np.repeat(lats, 61)
+
+    combi = np.vstack([lat_flat, lon_flat, land_bin.flatten()]).T
+    combi_df = pd.DataFrame(combi)
+    combi_df_nan = combi_df.dropna()
+    lat_tuple = np.asarray(combi_df_nan[0])
+    lon_tuple = np.asarray(combi_df_nan[1])
+    
+    paths = PrecipitationDataPaths()
+    feature_set_train, feature_set_test = select_data_subset(paths=paths, version='v2', fold=8)
+    Xtrain, ytrain = load_and_concat(data_dir, 8, feature_set_train, add_time = False, mode = "train")
+    Xtest, ytest = load_and_concat(data_dir, 8, feature_set_train, add_time = False, mode = "test")
+    M = Xtrain.shape[1]
+
+    col_gradient = plt.get_cmap('Blues', M)
+    newcolors = col_gradient(np.linspace(0, 1, M))
+    newcmp = ListedColormap(newcolors)
+    colors = [mcolors.to_hex(newcolors[i,:]) for i in np.arange((M-1), -1, -1)]
+
+    names = ['corr1', 'corr2', 'corr3', 'TCWV', 'CAPE', 'TCC', 'TCLW', 'R500', 'R300', 'D2', 'CIN', 'Q600', 
+         'Q925', 'T2', 'KX','Q700', 'SHR',  'VIMD', r'$\Psi$700','SPT', 'T850', 'T500', 'Q500']
+
+    if accum:
+        ix = np.array([3, 15, 14, 12, 9, 6, 22, 11, 7, 4, 5, 8, 10, 13, 16, 19, 21, 20, 17, 18])
+    else:
+        ix = np.array([3, 15, 14, 12, 9, 6, 22, 11, 7, 4, 5, 8, 10, 13, 16, 19, 21, 20, 17, 18])
+
+    names_ix_list = [names, ix]
+
+    df_list = list()
+    mean_list = list()
+    color_list = list()
+    ranking_list = list()
+    
+    for season in ['DJF', 'MA', 'MJ', 'JAS', 'ON']:
+        indices = spear_season_ix(season)
+        cpa_vals = np.zeros((len(lat_tuple), M))
+        for i in range(len(lat_tuple)):
+            #print(i)
+            lat = int(lat_tuple[i])
+            lon = lon_tuple[i]
+            j = int(lon + 25)
+            Xtrain_grid = Xtrain[:, :, lat, j]
+            Xtest_grid = Xtest[:, :, lat, j]
+            ytrain_grid = ytrain[:, lat, j]
+            ytest_grid = ytest[:, lat, j]
+            y_grid = np.concatenate((ytrain_grid, ytest_grid))
+            if not accum:
+                y_grid = y_grid > 0.2
+            X_grid = np.concatenate((Xtrain_grid, Xtest_grid))
+            if not accum and np.sum(y_grid[indices]) == 0:
+                cpa_vals[i, :] = np.nan
+            else:
+                for k in range(M):
+                    cpa_vals[i, k] = cpa(y_grid[indices], X_grid[indices, k])
+        cpa_mean = np.nanmean(cpa_vals[:, ix], axis = 0)
+        df = pd.DataFrame(cpa_vals[:, ix], columns = np.asarray(names)[ix])
+        df = df.dropna()
+        df_list.append(df)
+        mean_list.append(cpa_mean)
+
+        # color coding
+        ix_cpa = np.argsort(cpa_mean)[::-1]
+        rem_colors = np.asarray(colors)
+        ranking_ordered = np.arange(len(rem_colors))
+        k = 0
+        for ixx in ix_cpa:
+            rem_colors[ixx] = colors[k]
+            ranking_ordered[ixx] = k
+            k = k+1
+
+        ranking_list.append(ranking_ordered)
+        color_list.append(rem_colors)
+
+    return df_list, color_list, ranking_list, mean_list, names_ix_list
+
+
+def label_panel(ax, letter, *,offset_left=0.0, offset_up=0.2, prefix='', postfix=')', **font_kwds):
+    kwds = dict(fontsize=26)
+    kwds.update(font_kwds)
+    # this mad looking bit of code says that we should put the code offset a certain distance in
+    # inches (using the fig.dpi_scale_trans transformation) from the top left of the frame
+    # (which is (0, 1) in ax.transAxes transformation space)
+    fig = ax.figure
+    trans = ax.transAxes + transforms.ScaledTranslation(-offset_left, offset_up, fig.dpi_scale_trans)
+    ax.text(0, 1, prefix+letter+postfix, transform=trans, **kwds)
+    
+def label_panels(axes, letters=None, **kwds):
+    if letters is None:
+        letters = axes.keys()
+    for letter in letters:
+        ax = axes[letter]
+        label_panel(ax, letter, **kwds)

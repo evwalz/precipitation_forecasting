@@ -9,7 +9,7 @@ source(paste(dirname(rstudioapi::getSourceEditorContext()$path),'/emos_functions
 
 
 data_dir <- "../precip_data"
-#season = 'JAS'
+data_dir <- "/Volumes/My Passport for Mac/cnn/data_update/with_precip/precip_data"
 
 lsm = read.table(paste(data_dir,'/lsm.txt' , sep = ''))
 colnames(lsm) <- NULL
@@ -124,4 +124,5 @@ for (fold in 0:8){
 crps_folds
 
 write.table(crps_folds, paste(data_dir, '/results/emos_crps_',season ,'.txt', sep = ''), col.names = FALSE, row.names = FALSE)
+
 

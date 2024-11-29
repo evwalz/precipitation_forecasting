@@ -28,7 +28,7 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 
 ### Under construction
 
-    - include all forecast models in script Niamey.ipynb
+    - Niamey.ipynb: emos in PIT
     - decomposition.ipynb
     - store forecast data and include path
 

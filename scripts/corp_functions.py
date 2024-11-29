@@ -63,6 +63,13 @@ class reldiag:
         mcb = str(np.round(self.scores['mcb'][0], 3))
         dsc = str(np.round(self.scores['dsc'][0], 3))
         unc = str(np.round(self.scores['unc'][0], 3))
+        bs = str(np.round(self.scores['ms'][0], 3))
+        #if print_bs:
+        #    ax.text( 0.01, 0.95, 'BS = ' +bs , fontsize = 12)
+        #    ax.text( 0.01, 0.88, 'MCB = ' +mcb , fontsize = 12)
+        #    ax.text( 0.01, 0.81, 'DSC = '+dsc, fontsize = 12)
+        #    ax.text( 0.01, 0.74, 'UNC = '+unc, fontsize = 12) 
+        #else:
         ax.text( 0.01, 0.95, 'MCB = ' +mcb , fontsize = 12)
         ax.text( 0.01, 0.88, 'DSC = '+dsc, fontsize = 12)
         ax.text( 0.01, 0.81, 'UNC = '+unc, fontsize = 12) 

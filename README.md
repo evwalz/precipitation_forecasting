@@ -20,7 +20,7 @@ For Figure 7 and 8 successively remove one feature to train logit and dim model 
     - ecmwf_fct.ipynb 
     - emos.R
  
-To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`. Same scripts can be used to obtain forecast data to compute BS and CRPS decomposition using deco_bs_crps.R. Decomposition components to reproduce Figure 14 are provided in folder [results](./precip_data/results/). 
+To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`. Same scripts can be used to obtain forecast data to compute BS and CRPS decomposition. Decomposition components to reproduce Figure 14 are provided in folder [results](./precip_data/results/). (To compute CRPS decomposition components use function `isodeco_crps` from R package [isodisregSD](https://github.com/evwalz/isodisregSD) and for BS decomposition use `bs_deco.R`)
 
 The folder [precip_data](./precip_data/) contains data to compute climatology, statistical forecasts (DIM and Logit) and to replicate Figure 9. To compute scores for NWP foreacsts and the hybrid models NWP data in the folder [forecasts](./precip_data/forecasts) is required which is not provided in this repository since data size is too large. Contact us to obtain access to the CNN forecast data, the high resolution (HRES) run and the ensemble data.
 

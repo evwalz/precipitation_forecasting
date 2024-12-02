@@ -5,7 +5,7 @@ Code to build data-driven models, to produce precipitation forecasts and to repl
 
 File paths are relative to folder structure in this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). The folder [scripts](./scripts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and jupyter notebooks to visualize results:
     
-    - Figure 2, 3 and 4: cpa_auc.ipynb (not yet online)
+    - Figure 2, 3 and 4: cpa.ipynb (not yet online)
     - Figure 5: spear_correlation.ipynb (not yet online)
     - Figure 9: plot_eval.ipynb
     - Figure 10 and 11: skillscore.ipynb
@@ -20,7 +20,7 @@ For Figure 7 and 8 successively remove one feature to train logit and dim model 
     - ecmwf_fct.ipynb 
     - emos.R
  
-To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`.
+To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`. Same scripts can be used to obtain forecast data to compute BS and CRPS decomposition. To reproduce Figure 14, decomposition components are provided in folder [results](./precip_data/results/).
 
 The folder [precip_data](./precip_data/) contains data to compute climatology, statistical forecasts (DIM and Logit) and to replicate Figure 9. To compute scores for NWP foreacsts and the hybrid models NWP data in the folder [forecasts](./precip_data/forecasts) is required which is not provided in this repository since data size is too large. Contact us to obtain access to the CNN forecast data, the high resolution (HRES) run and the ensemble data.
 
@@ -28,7 +28,6 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 
 ### Under construction
 
-    - Niamey.ipynb: emos in PIT
     - decomposition.ipynb
     - store forecast data and include path
 

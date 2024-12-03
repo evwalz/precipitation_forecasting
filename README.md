@@ -28,7 +28,6 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 
 ### Under construction
 
-    - check scripts in folder fct_models
     - store forecast data and include path
 
 ### References

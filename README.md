@@ -26,7 +26,19 @@ The folder [precip_data](./precip_data/) contains data to compute climatology, s
 
 To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation). Data to compute CNN forecasts is provided in folder [precip_data](./precip_data/). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/tree/main/run).
 
+### Data
+To run the code several data sources are required:
+
+    1. [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors
+    2. Get [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) data and save it in folder [predictors](./precip_data/predictors). The referenced paper describes how to preprocess raw data.
+    3. Get ECMWF HRES and ensemble data from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive and save it in folder [forecasts](./precip_data/forecasts). The referenced paper describes how to preprocess raw data.
+
 
 ### References
 Walz, E., P. Knippertz, A. H. Fink, G. Köhler, and T. Gneiting, 2024: Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa. Mon. Wea. Rev., 152, 2011–2031, [https://doi.org/10.1175/MWR-D-24-0005.1](https://doi.org/10.1175/MWR-D-24-0005.1). 
+
+Huffman, G. J., and Coauthors, 2020: Integrated multi-satellite retrievals for the Global Precipitation Measurement (GPM) mission (IMERG). Satellite Precipitation Measurement:
+Volume 1, V. Levizzani et al., Eds., Springer, 343–353.
+
+
 

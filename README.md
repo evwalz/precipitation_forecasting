@@ -12,7 +12,7 @@ File paths are relative to folder structure in this package. If necessary adapt 
     - Figure 12 and 13: Niamey.ipynb
     - Figure 14: decomposition.ipynb (not yet online)
 
-For Figure 7 and 8 successively remove one feature to train logit and dim model (stat_models.ipynb). To replicate data which is used for Figure 9 (see folder [results](./precip_data/results/)) run forecast scripts: 
+For Figure 7 and 8 successively remove one feature to train logit and dim model (stat_models.ipynb). To replicate data which is used for Figure 9 (see folder [results](./precip_data/results/)) run forecast scripts in folrder [fct_models](./scripts/fct_models/): 
 
     - mpc.ipynb
     - stat_models.ipynb
@@ -28,7 +28,7 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 
 ### Under construction
 
-    - decomposition.ipynb
+    - check scripts in folder fct_models
     - store forecast data and include path
 
 ### References

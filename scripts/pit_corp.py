@@ -10,6 +10,7 @@ from isodisreg import idr
 import xarray as xr
 from scipy.interpolate import interp1d
 import random
+import os
 
 
 def upit(obs, ens):
@@ -104,6 +105,10 @@ def compute_rel(model, season, data_dir):
             obs_list.append(obs_test_bin)   
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
     elif model == 'cnn':
+        # check if forecast data are available:
+        file_path = data_dir + '/forecasts/cnn_fct/subset_val_preds_v2+time_fold0.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('CNN forecast data does not exists')
         feature_set = 'v2+time'
         add_time = True
         for fold in folds:
@@ -129,6 +134,13 @@ def compute_rel(model, season, data_dir):
             obs_list.append(val_obs > 0.2)   
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
     elif model == 'hybrid':
+        # check if forecast data are available:
+        file_path = data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('HRES forecast data does not exists')
+        file_path2 = data_dir + '/forecasts/cnn_fct/subset_val_preds_v2+time_fold0.nc'
+        if not os.path.isfile(file_path2):
+            raise ValueError('CNN forecast data does not exists')
         hres_data =  xr.open_dataset(data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc')
         feature_set = 'v2+time'
         add_time = True
@@ -168,6 +180,10 @@ def compute_rel(model, season, data_dir):
             obs_list.append(val_obs > 0.2)   
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
     elif model == 'ensemble_pp':
+        # check if forecast data are available:
+        file_path = data_dir + '/forecasts/ensemble_fct/ens24_pop_reconcut_invertlat_mm_2006_2019.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('Ensemble forecast data does not exists')
         ecmwf_data_dir = data_dir + '/forecasts/ensemble_fct/'
         pop = xr.open_dataset(ecmwf_data_dir + 'ens24_pop_reconcut_invertlat_mm_2006_2019.nc')
         for fold in folds:
@@ -207,6 +223,10 @@ def compute_rel(model, season, data_dir):
             pop_list.append(pop_test)  
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list)) 
     elif model == 'hres':
+        # check if forecast data are available:
+        file_path = data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('HRES forecast data does not exists')
         hres_data =  xr.open_dataset(data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc')
         for fold in folds:
             ytrain = load_obs(data_dir, fold, mode = "train")
@@ -239,6 +259,10 @@ def compute_rel(model, season, data_dir):
             obs_list.append(yval[ix0:ix1, i, j] > 0.2) 
         rel_object = reliabilitydiag(np.concatenate(pop_list), np.concatenate(obs_list))
     elif model == 'ensemble':
+        file_path = data_dir + '/forecasts/ensemble_fct/ens_0.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('Ensemble forecast data does not exists')
+        # check if forecast data are available:
         ecmwf_data_dir = data_dir + '/forecasts/ensemble_fct/'
         for fold in folds:
             if fold == 8:
@@ -358,6 +382,9 @@ def compute_pit(model, season, data_dir):
 
         pit_vals = np.concatenate(pit_list)
     elif model == 'hres':
+        file_path = data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('HRES forecast data does not exists')
         hres_data =  xr.open_dataset(data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc')
         for fold in folds:
             ytrain = load_obs(data_dir, fold, mode = "train")
@@ -387,6 +414,9 @@ def compute_pit(model, season, data_dir):
             pit_list.append(pred_idr.pit(yval[ix0:ix1, i, j]))
         pit_vals = np.concatenate(pit_list)
     elif model == 'cnn':
+        file_path = data_dir + '/forecasts/cnn_fct/subset_val_preds_v2+time_fold0.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('CNN forecast data does not exists')
         feature_set = 'v2+time'
         add_time = True
         for fold in folds:
@@ -409,6 +439,12 @@ def compute_pit(model, season, data_dir):
             pit_list.append(pred_idr.pit(val_obs))  
         pit_vals = np.concatenate(pit_list) 
     elif model == 'hybrid':
+        file_path = data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('HRES forecast data does not exists')
+        file_path2 = data_dir + '/forecasts/cnn_fct/subset_val_preds_v2+time_fold0.nc'
+        if not os.path.isfile(file_path2):
+            raise ValueError('CNN forecast data does not exists')      
         hres_data =  xr.open_dataset(data_dir + '/forecasts/hres_fct/HRES24_multi1000_precip_init00_66_reconcut_years_2001_2019.nc')
         feature_set = 'v2+time'
         add_time = True
@@ -452,6 +488,9 @@ def compute_pit(model, season, data_dir):
             #probs_rain = 1- (0.5*(pred_idr.cdf(0.2) + pred_idr2.cdf(0.2)))
         pit_vals = np.concatenate(pit_list)
     elif model == 'ensemble':
+        file_path = data_dir + '/forecasts/ensemble_fct/ens_0.nc'
+        if not os.path.isfile(file_path):
+            raise ValueError('Ensemble forecast data does not exists')
         ecmwf_data_dir = data_dir + '/forecasts/ensemble_fct/'
         for fold in folds:
             if fold == 8:
@@ -471,9 +510,7 @@ def compute_pit(model, season, data_dir):
             pit_list.append(pits)
         pit_vals = np.concatenate(pit_list)
     elif model == 'emos':
-        print('not yet implemented')
-        #pit_vals = np.concatenate(pit_list) 
-        pit_vals = None   
+        pit_vals = np.loadtxt(data_dir + '/results/prev_results_emos/pit_emos_niamey.txt')
     else:
         raise ValueError('model not specified')
     return pit_vals

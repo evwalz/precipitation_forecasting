@@ -27,11 +27,14 @@ The folder [precip_data](./precip_data/) contains data to compute climatology, s
 To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation). Data to compute CNN forecasts is provided in folder [precip_data](./precip_data/). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/tree/main/run).
 
 ### Data
-To run the code several data sources are required:
+To run the code several data sources are required. In this repository, we provide the following data:
 
-    1. [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors
-    2. Get [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) data and save it in folder [predictors](./precip_data/predictors). The referenced paper describes how to preprocess raw data.
-    3. Get ECMWF HRES and ensemble data from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive and save it in folder [forecasts](./precip_data/forecasts). The referenced paper describes how to preprocess raw data.
+    1. [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors)
+    2. CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct)
+
+Other data sources:
+    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. Use scripts in XYZ to downlaod and preprocess data. The final output is saved in [predictors](./precip_data/predictors).
+    2. Get ECMWF HRES and ensemble data from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive and save it in folder [forecasts](./precip_data/forecasts). The referenced paper describes how to preprocess raw data.
 
 
 ### References

@@ -33,8 +33,13 @@ To run the code several data sources are required. In this repository, we provid
     2. CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct)
 
 Other data sources:
-    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. Use scripts in XYZ to downlaod and preprocess data. The final output is saved in [predictors](./precip_data/predictors).
+    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. Use scripts in folder [download_data](./scripts/download_data/) to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). The final output is saved in [predictors](./precip_data/predictors). The download scripts require to set up climate data store (CDS) API. Alternatively, data can be downloaded through the CDS web interface. 
     2. Get ECMWF HRES and ensemble data from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive and save it in folder [forecasts](./precip_data/forecasts). The referenced paper describes how to preprocess raw data.
+
+
+### To dos:
+- provide data to reproduce figures such that raw data is not required (ERA5 and ECMWf)
+- provide scripts to download and process ECMWF data 
 
 
 ### References

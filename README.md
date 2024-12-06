@@ -34,10 +34,24 @@ To run the code several data sources are required. In this repository, we provid
 
 Other data sources:
 
-    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. Use scripts in folder [download_data](./scripts/download_data/) to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). The final output is saved in [predictors](./precip_data/predictors). The download scripts require to set up climate data store (CDS) API. Alternatively, data can be downloaded through the CDS web interface. 
-    2. Get ECMWF HRES data and save it in folder [hres_fct](./precip_data/forecasts/hres_fct). The referenced paper describes how to preprocess raw data. Adapt filename of data in scripts. 
-    3. Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct). The referenced paper describes how to preprocess raw data. Construct one file with probability of precipitation (PoP) forecasts from 2006 to 2019 (adapt filename in code). Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019, called `ens_0.nc` up to `ens_8.nc`. To cpmpute emos, download and save HRES, CTRL and PRTB foreacst data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
-    
+    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. <br>
+    Use scripts in folder [download_data](./scripts/download_data/) <br>
+    to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). 
+    The final output is saved in [predictors](./precip_data/predictors). <br>
+    The download scripts require to set up climate data store (CDS) API. <br>
+    Alternatively, data can be downloaded through the CDS web interface. 
+    2. Get ECMWF HRES data and save it in folder [hres_fct](./precip_data/forecasts/hres_fct). <br>
+    The referenced paper describes how to preprocess raw data. <br>
+    Adapt filename of data in scripts. 
+    3. Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct). <br>
+    The referenced paper describes how to preprocess raw data. <br>
+    Construct one file with probability of precipitation (PoP) forecasts <br>
+    from 2006 to 2019 (adapt filename in code). <br>
+    Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019, <br>
+    called `ens_0.nc` up to `ens_8.nc`. <br>
+    To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. <br>
+    In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
+
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
 
 

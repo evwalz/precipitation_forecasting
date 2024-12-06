@@ -124,7 +124,7 @@ def get_name(variable):
     elif variable == 'specific_humidity_500':
         name = 'spec_humid500'
     elif variable == 'shear':
-        name = 'shear'
+        name = 'shear925_600'
     elif variable == 'stream':
         name = 'stream'
     return name

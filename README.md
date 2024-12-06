@@ -1,7 +1,7 @@
 # Replication for "24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa "
 
 ## Content and Instruction
-Code to build data-driven models, to produce precipitation forecasts and to replicate Figure 9 from the paper "Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa".
+Code to build data-driven models, to produce precipitation forecasts and to replicate Figures from the paper "Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa".
 
 File paths are relative to folder structure in this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). The folder [scripts](./scripts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and jupyter notebooks to visualize results:
     
@@ -20,45 +20,31 @@ For Figure 7 and 8 successively remove one feature to train logit and dim model 
     - ecmwf_fct.ipynb 
     - emos.R
  
-To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`. Same scripts can be used to obtain forecast data to compute BS and CRPS decomposition. Decomposition components to reproduce Figure 14 are provided in folder [results](./precip_data/results/). (To compute CRPS decomposition components use function `isodeco_crps` from R package [isodisregSD](https://github.com/evwalz/isodisregSD) and for BS decomposition use file `deco_bs.R`)
-
-The folder [precip_data](./precip_data/) contains data to compute climatology, statistical forecasts (DIM and Logit) and to replicate Figure 9. To compute scores for NWP foreacsts and the hybrid models NWP data in the folder [forecasts](./precip_data/forecasts) is required which is not provided in this repository since data size is too large. Contact us to obtain access to the CNN forecast data, the high resolution (HRES) run and the ensemble data.
-
-To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation). Data to compute CNN forecasts is provided in folder [precip_data](./precip_data/). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/tree/main/run).
+To compute data to reproduce Figure 10 and 11 use same scripts but set `save_full = True`. Same scripts can be used to obtain forecast data to compute BS and CRPS decomposition. Decomposition components to reproduce Figure 14 are provided in folder [results](./precip_data/results/). (To compute CRPS decomposition components use function `isodeco_crps` from R package [isodisregSD](https://github.com/evwalz/isodisregSD) and for BS decomposition use file `deco_bs.R` in folder [scripts](./scripts/))
 
 ## Data
-To run the code several data sources are required. In this repository, we provide the following data:
+To run the code several data sources are required and should be stored in folder [precip_data](./precip_data/). In this repository, we provide the following data:
 
 #### GPM IMERG
 
  [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors).
 
 #### CNN
-CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct).
+CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct). To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation). Data to compute CNN forecasts is provided in folder [precip_data](./precip_data/). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/tree/main/run).
 
 #### ERA5
 
 [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data.
-    Use scripts in folder [download_data](./scripts/download_data/) 
-    to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). 
-    The final output is saved in [predictors](./precip_data/predictors). 
-    The download scripts require to set up climate data store (CDS) API. 
-    Alternatively, data can be downloaded through the CDS web interface. 
+Use scripts in folder [download_data](./scripts/download_data/) to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). The final output is saved in [predictors](./precip_data/predictors). The download scripts require to set up climate data store (CDS) API. Alternatively, data can be downloaded through the CDS web interface. 
 
 #### ECMWF HRES
 Get ECMWF HRES data and save it in folder [hres_fct](./precip_data/forecasts/hres_fct). 
-    The referenced paper describes how to preprocess raw data. 
-    Adapt filename of data in scripts. 
+The referenced paper describes how to preprocess raw data. Adapt filename of data in scripts. 
 
 #### ECMWF ensemble
 Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct).
-    The referenced paper describes how to preprocess raw data. 
-    Construct one file with probability of precipitation (PoP) forecasts 
-    from 2006 to 2019 (adapt filename in code).
-    Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019,
-    called `ens_0.nc` up to `ens_8.nc`. 
-    To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. 
-    In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
+The referenced paper describes how to preprocess raw data. Construct one file with probability of precipitation (PoP) forecasts from 2006 to 2019 (adapt filename in code). Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019, called `ens_0.nc` up to `ens_8.nc`. 
+To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
 
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
 

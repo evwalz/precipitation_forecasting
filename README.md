@@ -29,35 +29,38 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 ### Data
 To run the code several data sources are required. In this repository, we provide the following data:
 
-##### [GPM IMERG](https://gpm.nasa.gov/data/imerg)
+#### GPM IMERG
 
-GPM IMERG data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors).
+ [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors).
 
-##### CNN
+#### CNN
 CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct).
 
-#### Other data sources:
+#### ERA5
 
-    1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. <br>
-    Use scripts in folder [download_data](./scripts/download_data/) <br>
+[ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data.
+    Use scripts in folder [download_data](./scripts/download_data/) 
     to download (`era5_download.ipynb`) and preprocess data (`era5_preprocess.ipynb`). 
-    The final output is saved in [predictors](./precip_data/predictors). <br>
-    The download scripts require to set up climate data store (CDS) API. <br>
+    The final output is saved in [predictors](./precip_data/predictors). 
+    The download scripts require to set up climate data store (CDS) API. 
     Alternatively, data can be downloaded through the CDS web interface. 
-    2. Get ECMWF HRES data and save it in folder [hres_fct](./precip_data/forecasts/hres_fct). <br>
-    The referenced paper describes how to preprocess raw data. <br>
+
+#### ECMWF HRES
+Get ECMWF HRES data and save it in folder [hres_fct](./precip_data/forecasts/hres_fct). 
+    The referenced paper describes how to preprocess raw data. 
     Adapt filename of data in scripts. 
-    3. Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct). <br>
-    The referenced paper describes how to preprocess raw data. <br>
-    Construct one file with probability of precipitation (PoP) forecasts <br>
-    from 2006 to 2019 (adapt filename in code). <br>
-    Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019, <br>
-    called `ens_0.nc` up to `ens_8.nc`. <br>
-    To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. <br>
+
+#### ECMWF ensemble
+Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct).
+    The referenced paper describes how to preprocess raw data. 
+    Construct one file with probability of precipitation (PoP) forecasts 
+    from 2006 to 2019 (adapt filename in code).
+    Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019,
+    called `ens_0.nc` up to `ens_8.nc`. 
+    To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. 
     In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
 
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
-
 
 ### References
 Walz, E., P. Knippertz, A. H. Fink, G. Köhler, and T. Gneiting, 2024: Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa. Mon. Wea. Rev., 152, 2011–2031, [https://doi.org/10.1175/MWR-D-24-0005.1](https://doi.org/10.1175/MWR-D-24-0005.1). 

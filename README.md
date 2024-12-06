@@ -38,10 +38,6 @@ Other data sources:
     3. Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forecasts/ensemble_fct). The referenced paper describes how to preprocess raw data. Construct one file with probability of precipitation (PoP) forecasts from 2006 to 2019 (adapt filename in code). Construct 9 files with the 51-member ensemble data for each year from 2011 to 2019, called `ens_0.nc` up to `ens_8.nc`. To cpmpute emos, download and save HRES, CTRL and PRTB foreacst data in folder (emos)[./precip_data/forecasts/ensemble_fct/emos]. In script `emos.R`, data is called `hres_2006.nc`, `ctrl_2006.nc` and `prtb_2006.nc`. 
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
 
-### To dos:
-- provide data to reproduce figures such that raw data is not required (ERA5 and ECMWf)
-- provide scripts to download and process ECMWF data 
-
 
 ### References
 Walz, E., P. Knippertz, A. H. Fink, G. Köhler, and T. Gneiting, 2024: Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa. Mon. Wea. Rev., 152, 2011–2031, [https://doi.org/10.1175/MWR-D-24-0005.1](https://doi.org/10.1175/MWR-D-24-0005.1). 

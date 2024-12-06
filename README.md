@@ -1,6 +1,6 @@
 # Replication for "24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa "
 
-### Content and Instruction
+## Content and Instruction
 Code to build data-driven models, to produce precipitation forecasts and to replicate Figure 9 from the paper "Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa".
 
 File paths are relative to folder structure in this package. If necessary adapt path to data in the files of the folder [scripts](./scripts/). The folder [scripts](./scripts/) contains jupyter notebooks to compute data-driven forecasts, an R-file to compute EMOS method and jupyter notebooks to visualize results:
@@ -26,7 +26,7 @@ The folder [precip_data](./precip_data/) contains data to compute climatology, s
 
 To compute CNN forecasts follow instructions under [https://github.com/evwalz/precipitation](https://github.com/evwalz/precipitation). Data to compute CNN forecasts is provided in folder [precip_data](./precip_data/). Set path to data directory in script [run.sh](https://github.com/evwalz/precipitation/tree/main/run).
 
-### Data
+## Data
 To run the code several data sources are required. In this repository, we provide the following data:
 
 #### GPM IMERG
@@ -62,7 +62,7 @@ Get ECMWF ensemble data and save it in folder [ensemble_fct](./precip_data/forec
 
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
 
-### References
+## References
 Walz, E., P. Knippertz, A. H. Fink, G. Köhler, and T. Gneiting, 2024: Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa. Mon. Wea. Rev., 152, 2011–2031, [https://doi.org/10.1175/MWR-D-24-0005.1](https://doi.org/10.1175/MWR-D-24-0005.1). 
 
 Huffman, G. J., and Coauthors, 2020: Integrated multi-satellite retrievals for the Global Precipitation Measurement (GPM) mission (IMERG). Satellite Precipitation Measurement:

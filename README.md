@@ -29,10 +29,14 @@ To compute CNN forecasts follow instructions under [https://github.com/evwalz/pr
 ### Data
 To run the code several data sources are required. In this repository, we provide the following data:
 
-    1. [GPM IMERG](https://gpm.nasa.gov/data/imerg) data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors)
-    2. CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct)
+##### [GPM IMERG](https://gpm.nasa.gov/data/imerg)
 
-Other data sources:
+GPM IMERG data in folder [observation](./precip_data/observation). Data is processed as described [here](https://github.com/evwalz/epc). The referenced paper describes how to compute the correlated predictors which are provided in [corr_predictors](./precip_data/corr_predictors).
+
+##### CNN
+CNN forecasts in folder [cnn_fct](./precip_data/forecasts/cnn_fct).
+
+#### Other data sources:
 
     1. [ERA5](https://www.ecmwf.int/en/forecasts/dataset/ecmwf-reanalysis-v5) reanalysis data. <br>
     Use scripts in folder [download_data](./scripts/download_data/) <br>

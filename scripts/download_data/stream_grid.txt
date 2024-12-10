@@ -2,16 +2,17 @@
 # gridID 1
 #
 gridtype  = lonlat
-xsize     = 61
-ysize     = 19
-xname     = longitude
+gridsize  = 64440
+xsize     = 360
+ysize     = 179
+xname     = lon
 xlongname = "longitude"
 xunits    = "degrees_east"
-yname     = latitude
+yname     = lat
 ylongname = "latitude"
 yunits    = "degrees_north"
-xfirst    = -25
+xfirst    = 0
 xinc      = 1
-yfirst    = 0
+yfirst    = -89.0
 yinc      = 1
 

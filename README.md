@@ -48,6 +48,11 @@ To compute emos, download and save HRES, CTRL and PRTB forecast data in folder (
 
 <!--from [MARS](https://confluence.ecmwf.int/display/CEMS/MARS) archive -->
 
+## Work in progress
+
+Include computation of stream function.
+
+
 ## References
 Walz, E., P. Knippertz, A. H. Fink, G. Köhler, and T. Gneiting, 2024: Physics-Based vs Data-Driven 24-Hour Probabilistic Forecasts of Precipitation for Northern Tropical Africa. Mon. Wea. Rev., 152, 2011–2031, [https://doi.org/10.1175/MWR-D-24-0005.1](https://doi.org/10.1175/MWR-D-24-0005.1). 
 

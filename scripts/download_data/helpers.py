@@ -83,9 +83,9 @@ def get_stream(data_dir):
     os.chdir(data_dir)
     # Define the CDO commands as a list of strings
     commands = [
-        "cdo -b 32 -setname,svo era5_relative_vorticity_700.nc era5_relative_vorticity_700_svo.nc",
-        "cdo -L -b 32 -chname,svo,sd -mulc,0 era5_relative_vorticity_700_svo.nc era5_zerodiv.nc",
-        "cdo -merge era5_relative_vorticity_700_svo.nc era5_zerodiv.nc era5_svosd.nc",
+        "cdo -b 32 -setname,svo era5_vorticity_700.nc era5_vorticity_700_svo.nc",
+        "cdo -L -b 32 -chname,svo,sd -mulc,0 era5_vorticity_700_svo.nc era5_zerodiv.nc",
+        "cdo -merge era5_vorticity_700_svo.nc era5_zerodiv.nc era5_svosd.nc",
         "cdo -L -b 32 -remapbil,stream_grid.txt -selvar,stream -sp2gp -dv2ps -gp2sp -remapbil,t511grid era5_svosd.nc era5_stream.nc"
         ]
     # Execute each command
